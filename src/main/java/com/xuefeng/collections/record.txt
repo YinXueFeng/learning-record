@@ -1,0 +1,6 @@
+Java集合继承结构
+1.所有集合的父接口是Iterable
+2.Map与Collection，只有Collection接口继承自Iterable
+
+3.Collection下的常见集合类型
+    List
