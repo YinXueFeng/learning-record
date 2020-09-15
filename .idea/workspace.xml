@@ -2,13 +2,13 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="d710fe15-2a2a-4b93-84d0-841d8ad6d5d9" name="Default Changelist" comment="">
-      <change beforePath="$PROJECT_DIR$/.idea/compiler.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/jarRepositories.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/record.iml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/uiDesigner.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/vcs.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/compiler.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/compiler.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/jarRepositories.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/jarRepositories.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/record.iml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/record.iml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/uiDesigner.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/uiDesigner.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/vcs.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/vcs.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
     </list>
     <list id="f5ccb462-f7a6-415e-85a5-2aaea4d43a9f" name="Revert &quot;Update README.md&quot;" comment="Revert &quot;Update README.md&quot;&#10;&#10;This reverts commit 4ee6a7e" />
     <ignored path="$PROJECT_DIR$/target/" />
@@ -58,8 +58,8 @@
       <file pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/.gitignore">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="190">
-              <caret line="10" lean-forward="true" selection-start-line="10" selection-end-line="10" />
+            <state relative-caret-position="152">
+              <caret line="8" lean-forward="true" selection-start-line="8" selection-end-line="8" />
             </state>
           </provider>
         </entry>
@@ -120,8 +120,8 @@
     </option>
   </component>
   <component name="ProjectFrameBounds">
-    <option name="x" value="179" />
-    <option name="y" value="3" />
+    <option name="x" value="531" />
+    <option name="y" value="37" />
     <option name="width" value="1625" />
     <option name="height" value="1032" />
   </component>
@@ -189,7 +189,7 @@
   <component name="PropertiesComponent">
     <property name="WebServerToolWindowFactoryState" value="false" />
     <property name="aspect.path.notification.shown" value="true" />
-    <property name="com.android.tools.idea.instantapp.provision.ProvisionBeforeRunTaskProvider.myTimeStamp" value="1600140252693" />
+    <property name="com.android.tools.idea.instantapp.provision.ProvisionBeforeRunTaskProvider.myTimeStamp" value="1600140592189" />
     <property name="last_opened_file_path" value="$PROJECT_DIR$" />
     <property name="nodejs_interpreter_path.stuck_in_default_project" value="undefined stuck path" />
     <property name="nodejs_npm_path_reset_for_default_project" value="true" />
@@ -274,7 +274,7 @@
       <workItem from="1599787551931" duration="32000" />
       <workItem from="1599794240262" duration="131000" />
       <workItem from="1599794482663" duration="3262000" />
-      <workItem from="1600133096885" duration="6775000" />
+      <workItem from="1600133096885" duration="7257000" />
     </task>
     <task id="LOCAL-00001" summary="readme">
       <created>1600137574702</created>
@@ -332,16 +332,31 @@
       <option name="project" value="LOCAL" />
       <updated>1600139873496</updated>
     </task>
-    <option name="localTasksCounter" value="9" />
+    <task id="LOCAL-00009" summary="[update] .gitignore,delete .idea directory from remote 2">
+      <created>1600140066270</created>
+      <option name="number" value="00009" />
+      <option name="presentableId" value="LOCAL-00009" />
+      <option name="project" value="LOCAL" />
+      <updated>1600140066270</updated>
+    </task>
+    <task id="LOCAL-00010" summary="[update] .gitignore,delete .idea directory from remote 2">
+      <created>1600140281653</created>
+      <option name="number" value="00010" />
+      <option name="presentableId" value="LOCAL-00010" />
+      <option name="project" value="LOCAL" />
+      <updated>1600140281653</updated>
+    </task>
+    <option name="localTasksCounter" value="11" />
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="10168000" />
+    <option name="totallyTimeSpent" value="10650000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="179" y="3" width="1625" height="1032" extended-state="0" />
+    <editor active="true" />
     <layout>
-      <window_info active="true" content_ui="combo" id="Project" order="0" visible="true" weight="0.25303516" />
+      <window_info content_ui="combo" id="Project" order="0" visible="true" weight="0.25303516" />
       <window_info id="Structure" order="1" side_tool="true" weight="0.25" />
       <window_info id="Image Layers" order="2" />
       <window_info id="Designer" order="3" />
@@ -356,7 +371,7 @@
       <window_info anchor="bottom" id="Inspection" order="5" weight="0.4" />
       <window_info anchor="bottom" id="TODO" order="6" />
       <window_info anchor="bottom" id="Database Changes" order="7" show_stripe_button="false" />
-      <window_info anchor="bottom" id="Terminal" order="8" sideWeight="0.49968052" visible="true" weight="0.5462653" />
+      <window_info active="true" anchor="bottom" id="Terminal" order="8" sideWeight="0.49968052" visible="true" weight="0.5462653" />
       <window_info anchor="bottom" id="Event Log" order="9" sideWeight="0.5003195" side_tool="true" weight="0.48494983" />
       <window_info anchor="bottom" id="Version Control" order="10" weight="0.40356743" />
       <window_info anchor="bottom" id="Messages" order="11" weight="0.32962137" />
@@ -443,7 +458,8 @@
     <MESSAGE value="[update] delete .idea/.gitignore" />
     <MESSAGE value="[update]: .gitignore" />
     <MESSAGE value="[update] .gitignore,delete .idea directory from remote" />
-    <option name="LAST_COMMIT_MESSAGE" value="[update] .gitignore,delete .idea directory from remote" />
+    <MESSAGE value="[update] .gitignore,delete .idea directory from remote 2" />
+    <option name="LAST_COMMIT_MESSAGE" value="[update] .gitignore,delete .idea directory from remote 2" />
   </component>
   <component name="WindowStateProjectService">
     <state x="625" y="300" key="FileChooserDialogImpl" />
@@ -550,8 +566,8 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/.gitignore">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="190">
-          <caret line="10" lean-forward="true" selection-start-line="10" selection-end-line="10" />
+        <state relative-caret-position="152">
+          <caret line="8" lean-forward="true" selection-start-line="8" selection-end-line="8" />
         </state>
       </provider>
     </entry>
