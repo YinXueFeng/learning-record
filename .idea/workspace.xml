@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="d710fe15-2a2a-4b93-84d0-841d8ad6d5d9" name="Default Changelist" comment="[update] .gitignore,delete .idea de">
+    <list default="true" id="d710fe15-2a2a-4b93-84d0-841d8ad6d5d9" name="Default Changelist" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/compiler.xml" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/jarRepositories.xml" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" />
@@ -120,8 +120,8 @@
     </option>
   </component>
   <component name="ProjectFrameBounds">
-    <option name="x" value="254" />
-    <option name="y" value="38" />
+    <option name="x" value="179" />
+    <option name="y" value="3" />
     <option name="width" value="1625" />
     <option name="height" value="1032" />
   </component>
@@ -189,7 +189,7 @@
   <component name="PropertiesComponent">
     <property name="WebServerToolWindowFactoryState" value="false" />
     <property name="aspect.path.notification.shown" value="true" />
-    <property name="com.android.tools.idea.instantapp.provision.ProvisionBeforeRunTaskProvider.myTimeStamp" value="1600139845778" />
+    <property name="com.android.tools.idea.instantapp.provision.ProvisionBeforeRunTaskProvider.myTimeStamp" value="1600139888943" />
     <property name="last_opened_file_path" value="$PROJECT_DIR$" />
     <property name="nodejs_interpreter_path.stuck_in_default_project" value="undefined stuck path" />
     <property name="nodejs_npm_path_reset_for_default_project" value="true" />
@@ -274,7 +274,7 @@
       <workItem from="1599787551931" duration="32000" />
       <workItem from="1599794240262" duration="131000" />
       <workItem from="1599794482663" duration="3262000" />
-      <workItem from="1600133096885" duration="6522000" />
+      <workItem from="1600133096885" duration="6775000" />
     </task>
     <task id="LOCAL-00001" summary="readme">
       <created>1600137574702</created>
@@ -318,14 +318,28 @@
       <option name="project" value="LOCAL" />
       <updated>1600139347922</updated>
     </task>
-    <option name="localTasksCounter" value="7" />
+    <task id="LOCAL-00007" summary="[update] .gitignore,delete .idea directory from remote">
+      <created>1600139816561</created>
+      <option name="number" value="00007" />
+      <option name="presentableId" value="LOCAL-00007" />
+      <option name="project" value="LOCAL" />
+      <updated>1600139816561</updated>
+    </task>
+    <task id="LOCAL-00008" summary="[update] .gitignore,delete .idea directory from remote">
+      <created>1600139873496</created>
+      <option name="number" value="00008" />
+      <option name="presentableId" value="LOCAL-00008" />
+      <option name="project" value="LOCAL" />
+      <updated>1600139873496</updated>
+    </task>
+    <option name="localTasksCounter" value="9" />
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="9915000" />
+    <option name="totallyTimeSpent" value="10168000" />
   </component>
   <component name="ToolWindowManager">
-    <frame x="254" y="38" width="1625" height="1032" extended-state="0" />
+    <frame x="179" y="3" width="1625" height="1032" extended-state="0" />
     <layout>
       <window_info active="true" content_ui="combo" id="Project" order="0" visible="true" weight="0.25303516" />
       <window_info id="Structure" order="1" side_tool="true" weight="0.25" />
@@ -342,9 +356,9 @@
       <window_info anchor="bottom" id="Inspection" order="5" weight="0.4" />
       <window_info anchor="bottom" id="TODO" order="6" />
       <window_info anchor="bottom" id="Database Changes" order="7" show_stripe_button="false" />
-      <window_info anchor="bottom" id="Terminal" order="8" sideWeight="0.49968052" visible="true" weight="0.30657747" />
+      <window_info anchor="bottom" id="Terminal" order="8" sideWeight="0.49968052" visible="true" weight="0.5462653" />
       <window_info anchor="bottom" id="Event Log" order="9" sideWeight="0.5003195" side_tool="true" weight="0.48494983" />
-      <window_info anchor="bottom" id="Version Control" order="10" weight="0.4549403" />
+      <window_info anchor="bottom" id="Version Control" order="10" weight="0.40356743" />
       <window_info anchor="bottom" id="Messages" order="11" weight="0.32962137" />
       <window_info anchor="right" id="Commander" internal_type="SLIDING" order="0" type="SLIDING" weight="0.4" />
       <window_info anchor="right" id="Ant Build" order="1" weight="0.25" />
@@ -428,7 +442,8 @@
     <MESSAGE value="[update] add .gitignore" />
     <MESSAGE value="[update] delete .idea/.gitignore" />
     <MESSAGE value="[update]: .gitignore" />
-    <option name="LAST_COMMIT_MESSAGE" value="[update]: .gitignore" />
+    <MESSAGE value="[update] .gitignore,delete .idea directory from remote" />
+    <option name="LAST_COMMIT_MESSAGE" value="[update] .gitignore,delete .idea directory from remote" />
   </component>
   <component name="WindowStateProjectService">
     <state x="625" y="300" key="FileChooserDialogImpl" />
