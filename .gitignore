@@ -8,3 +8,4 @@
 /httpRequests/
 
 /.idea
+git rm -r --cached .idea
