@@ -16,3 +16,4 @@ data/
 /out/
 /**/out
 
+# git ls-files -i -z --exclude-from=.gitignore | xargs -0 git rm --cached ###

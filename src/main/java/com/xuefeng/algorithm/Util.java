@@ -25,4 +25,18 @@ public class Util {
         System.out.println("数组初始化：" + init);
         return arr;
     }
+
+    /**
+     * 交换数组元素
+     * @param arr
+     * @param a
+     * @param b
+     */
+    public static void swap(int[] arr, int a, int b) {
+        arr[a] = arr[a] + arr[b];
+        // arr[b] = arr[a]
+        arr[b] = arr[a] - arr[b];
+        // arr[a] = arr[b]
+        arr[a] = arr[a] - arr[b];
+    }
 }
