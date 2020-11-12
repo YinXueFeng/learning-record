@@ -34,8 +34,15 @@ public class ReverseLeftWords_Sword_58_II {
         return remain.concat(substring);
     }
 
+
+
+
     /**
      * 3次翻转
+     *     作者：chuang-bian-gu-shi
+     *     链接：https://leetcode-cn.com/problems/zuo-xuan-zhuan-zi-fu-chuan-lcof/solution/yuan-di-suan-fa-san-ci-fan-zhuan-zi-fu-chuan-ji-ke/
+     *     来源：力扣（LeetCode）
+     *     著作权归作者所有。商业转载请联系作者获得授权，非商业转载请注明出处。
      * @param s
      * @param n
      * @return
