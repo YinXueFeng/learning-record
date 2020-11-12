@@ -241,6 +241,81 @@ Java中数据类型分为：`基本数据类型`和`引用数据类型`两个大
      * 后序遍历右子树
      * 访问根结点
 
+```java
+public class BinaryTree {
+
+    // 二叉树定义
+    private static class TreeNode {
+        int data;
+        TreeNode leftChild;
+        TreeNode rightChild;
+
+        TreeNode(int data) {
+            this.data = data;
+        }
+    }
+
+    // 构建二叉树：以先序方式构建二叉树
+    public static TreeNode createBinaryTree(LinkedList<Integer> inputList) {
+        TreeNode node = null;
+        if (inputList == null || inputList.isEmpty()) {
+            return null;
+        }
+        Integer data = inputList.removeFirst();
+        if (data != null) {
+            node = new TreeNode(data);
+            node.leftChild = createBinaryTree(inputList);
+            node.rightChild = createBinaryTree(inputList);
+        }
+        return node;
+    }
+
+    // 先序遍历
+    public static void preOrderTraversal(TreeNode node) {
+        if (node == null) {
+            return;
+        }
+        System.out.println(node.data);
+        preOrderTraversal(node.leftChild);
+        preOrderTraversal(node.rightChild);
+    }
+
+    // 中序遍历
+    public static void inOrderTraversal(TreeNode node) {
+        if (node == null) {
+            return;
+        }
+        inOrderTraversal(node.leftChild);
+        System.out.println(node.data);
+        inOrderTraversal(node.rightChild);
+    }
+
+    // 后序遍历
+    public static void postOrderTraversal(TreeNode node) {
+        if (node == null) {
+            return;
+        }
+        postOrderTraversal(node.leftChild);
+        postOrderTraversal(node.rightChild);
+        System.out.println(node.data);
+    }
+
+    public static void main(String[] args) {
+        // null 表示该结点为空结点
+        LinkedList<Integer> inputList = new LinkedList<Integer>(
+                Arrays.asList(new Integer[]{3,2,9,null,null,10,null,null,8,null,4}));
+        TreeNode node = createBinaryTree(inputList);
+        System.out.println("前序遍历：");
+        preOrderTraversal(node);
+        System.out.println("中序遍历：");
+        inOrderTraversal(node);
+        System.out.println("后序遍历：");
+        postOrderTraversal(node);
+    }
+}
+```
+
+
    * 层序遍历
 
 
@@ -259,6 +334,7 @@ Java中数据类型分为：`基本数据类型`和`引用数据类型`两个大
 ### 5.1.3 代码实现
 
 ```java
+public class BubbleSort {
 	/**
      * 冒泡算法： 从小到大排序 （例）
      *  算法描述：
@@ -346,7 +422,18 @@ Java中数据类型分为：`基本数据类型`和`引用数据类型`两个大
         }
         return arr;
     }
+    
+    public static void main(String[] args) {
+            int[] arr = randomArr();
+            for(int i = 0; i < 10; i++) {
+                System.out.print("," + arr[i]);
+            }
+            bubbleSortImprove2(arr);
+        }
+}
 
+
+public class Util {
 	public static void printArr(int[] arr, int i) {
         // 输出记录
         String num = "";
@@ -367,14 +454,7 @@ Java中数据类型分为：`基本数据类型`和`引用数据类型`两个大
         }
         return arr;
     }
-
-	public static void main(String[] args) {
-        int[] arr = randomArr();
-        for(int i = 0; i < 10; i++) {
-            System.out.print("," + arr[i]);
-        }
-        bubbleSortImprove2(arr);
-    }
+}
 ```
 
 ### 5.1.3 算法分析
@@ -404,6 +484,7 @@ n个记录的直接选择排序可经过n-1趟直接选择排序得到有序结�
 ### 5.2.2 代码实现
 
 ```java
+public class SelectionSort {
 /**
      * 选择排序： 从小到大排序
      *  算法描述：
@@ -435,6 +516,7 @@ n个记录的直接选择排序可经过n-1趟直接选择排序得到有序结�
         }
         return arr;
     }
+}
 ```
 
 
@@ -477,6 +559,7 @@ MySQL实战、高性能MySQL
 ### 5.3.3 代码实现
 
 ```java
+public class InsertionSort {
 /**
      * 插入排序
      *  算法描述：
@@ -534,7 +617,7 @@ MySQL实战、高性能MySQL
 
         return arr;
     }
-
+}
 ```
 
 

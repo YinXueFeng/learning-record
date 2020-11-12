@@ -12,7 +12,7 @@ public class Util {
     }
 
     /**
-     * 随机生成一个包含10个元素的数组
+     * 随机生成一个小于m的包含n个元素的数组
      * @return
      */
     public static int[] randomArr(int n,int m) {
@@ -39,4 +39,17 @@ public class Util {
         // arr[a] = arr[b]
         arr[a] = arr[a] - arr[b];
     }
+
+    /**
+     * 计算对数工具，由数学公式
+     *      logx(y) = loge(y) / loge(x)
+     * @param value
+     * @param base
+     * @return
+     */
+    public static double log(double value, double base) {
+        return Math.log(value) / Math.log(base);
+    }
+
+
 }
