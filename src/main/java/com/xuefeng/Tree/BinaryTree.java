@@ -61,6 +61,26 @@ public class BinaryTree {
         System.out.println(node.data);
     }
 
+    // 层序遍历
+    public static void levelOrderTraversal(TreeNode root) {
+        // 层序遍历二叉树，结点不存在的表示为null
+        LinkedList<TreeNode> queue = new LinkedList<TreeNode>();
+        // 在队列尾部添加元素
+        queue.offer(root);
+        while (!queue.isEmpty()) {
+            // 查找并删除队列的头部元素
+            TreeNode node = queue.poll();
+            System.out.println(node.data);
+            if (node.leftChild != null) {
+                queue.offer(node.leftChild);
+            }
+            if (node.rightChild != null) {
+                queue.offer(node.rightChild);
+            }
+        }
+
+    }
+
     public static void main(String[] args) {
         // null 表示该结点为空结点
         LinkedList<Integer> inputList = new LinkedList<Integer>(
@@ -72,5 +92,7 @@ public class BinaryTree {
         inOrderTraversal(node);
         System.out.println("后序遍历：");
         postOrderTraversal(node);
+        System.out.println("层序遍历：");
+        levelOrderTraversal(node);
     }
 }
