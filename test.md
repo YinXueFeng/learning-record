@@ -66,6 +66,350 @@ Java中数据类型分为：`基本数据类型`和`引用数据类型`两个大
 
 
 
+## 2.2 多线程
+
+### 2.2.1 基本概念：程序/进程/线程
+
+1. 程序：是为完成特定任务、用某种语言编写的一组指令的集合。即**一段静态的代码**，静态对象。
+2. 进程：是程序的一次执行过程，或是**正在运行的一个程序**。是一个动态的过程：有它自身的产生、存在和消亡的过程——**生命周期**。
+   * 程序是静态的，进程是动态的
+   * **进程作为资源分配的单位**，系统在运行时会为每个进程分配不同的内存区域。
+
+3. 线程：进程可进一步细化为线程，是一个程序内部的一条执行路径。
+   * 若一个进程同一时间**并行**执行多个线程，就是支持多线程的
+   * **线程作为调度和执行的单位，每个线程拥有独立的运行站和程序计数器（PC）**，线程切换的开销小
+   * 一个进程中的多个线程共享相同的内存单元/内存地址空间——它们从同一个堆中分配对象，可以访问相同的变量和对象。这使得线程间通信更简便高效。但是多个线程操作共享的系统资源可能就会带来安全隐患。
+
+### 2.2.2 线程的生命周期
+
+```java
+public enum State {
+        /**
+         * Thread state for a thread which has not yet started.
+         */
+        NEW,
+
+        /**
+         * Thread state for a runnable thread.  A thread in the runnable
+         * state is executing in the Java virtual machine but it may
+         * be waiting for other resources from the operating system
+         * such as processor.
+         */
+        RUNNABLE,
+
+        /**
+         * Thread state for a thread blocked waiting for a monitor lock.
+         * A thread in the blocked state is waiting for a monitor lock
+         * to enter a synchronized block/method or
+         * reenter a synchronized block/method after calling
+         * {@link Object#wait() Object.wait}.
+         */
+        BLOCKED,
+
+        /**
+         * Thread state for a waiting thread.
+         * A thread is in the waiting state due to calling one of the
+         * following methods:
+         * <ul>
+         *   <li>{@link Object#wait() Object.wait} with no timeout</li>
+         *   <li>{@link #join() Thread.join} with no timeout</li>
+         *   <li>{@link LockSupport#park() LockSupport.park}</li>
+         * </ul>
+         *
+         * <p>A thread in the waiting state is waiting for another thread to
+         * perform a particular action.
+         *
+         * For example, a thread that has called <tt>Object.wait()</tt>
+         * on an object is waiting for another thread to call
+         * <tt>Object.notify()</tt> or <tt>Object.notifyAll()</tt> on
+         * that object. A thread that has called <tt>Thread.join()</tt>
+         * is waiting for a specified thread to terminate.
+         */
+        WAITING,
+
+        /**
+         * Thread state for a waiting thread with a specified waiting time.
+         * A thread is in the timed waiting state due to calling one of
+         * the following methods with a specified positive waiting time:
+         * <ul>
+         *   <li>{@link #sleep Thread.sleep}</li>
+         *   <li>{@link Object#wait(long) Object.wait} with timeout</li>
+         *   <li>{@link #join(long) Thread.join} with timeout</li>
+         *   <li>{@link LockSupport#parkNanos LockSupport.parkNanos}</li>
+         *   <li>{@link LockSupport#parkUntil LockSupport.parkUntil}</li>
+         * </ul>
+         */
+        TIMED_WAITING,
+
+        /**
+         * Thread state for a terminated thread.
+         * The thread has completed execution.
+         */
+        TERMINATED;
+    }
+```
+
+
+
+![线程的生命周期](D:\Program Files\Typorab\notes\线程的生命周期.png)
+
+
+
+1. 新建：当使用new关键字创建了一个线程后，该线程就处于新建状态，此时JVM为其分配内存并初始化其成员变量的值；
+2. 就绪：当调用了start()方法后，该线程处于就绪状态，此时JVM为其创建**方法调用栈和程序计数器**，等待调度运行；
+3. 运行：处于就绪状态的线程获得了CPU执行权，开始执行run()方法的线程执行体，则该线程处于运行状态；
+4. 阻塞：当处于运行状态的线程失去占用的资源，进入阻塞状态；
+5. 死亡：当线程正常执行完run()或者发生错误及异常或调用stop()，则该线程结束。
+
+### 2.2.3 线程的创建方式
+
+* 继承Thread类
+
+  * 创建一个类，继承Thread类
+  * 重写Thread的run()方法
+  * 创建Thread类的子类对象
+  * 通过此对象调用start()
+
+  注意：
+
+  1. 启动一个线程，必须调用start()，不能以调用run()的方式启动线程
+  2. 已经启动一次线程的情况下，如果再启动一个线程，必须重新创建一个Thread子类的对象，调用此对象的start()。
+
+* 实现Runnable接口
+
+  * 创建一个实现了Runnable接口的类
+  * 实现类去实现Runnable接口的抽象方法：run()
+  * 创建实现类的对象
+  * 将次对象作为参数传递到Thread类的构造器中，创建Thread类的对象
+  * 通过Thread类的对象调用start()
+
+
+
+​		继承Thread类与实现Runnable接口的对比：
+
+​			开发中，优先选择**实现Runnable接口的方式**
+
+​			原因：实现Runnable接口的方式没有类的单继承性的局限性；
+
+​							实现Runnable接口的方式更适合处理多个线程共享数据的情况。
+
+​		联系：public class Thread implements Runnable
+
+​		相同点：两种方式都需要重写run()，将线程要执行的逻辑声明在run()中
+
+* 实现Callable接口
+
+   * 创建一个实现Callable<T>的类
+
+   * 实现call()方法，
+
+   * 创建Callable实现类的对象
+
+   * 将Callable实现类的对象作为构造器参数，传入FutureTask中，创建FutureTask的对象
+
+   * 将FutureTask的对象作为参数传入Thread中，创建Thread的对象
+
+   * 使用Thread的对象调用start()
+
+     如何理解实现Callable接口的方式创建多线程比实现Runnable接口创建多线程的方式强大？
+
+     1）call()可以有返回值
+
+     2）call()可以抛出异常，被外面的操作捕获，获取异常的信息
+
+     3）Callable支持泛型
+
+* 线程池
+
+  * 创建实现Runnable接口或Callable接口的子类对象
+
+  * 调用Executors.xxxx创建线程池
+
+  * 将子类对象作为execute()或submit()的参数
+
+    
+
+  JDK5起提供了线程池相关API，**ExecutorService**和**Executors**
+
+  * ExecutorService：真正的线程池接口。常见子类ThreadPoolExecutor
+    * void execute(Runnable command)：执行任务/命令，没有返回值，一般用来执行Runnable
+    * <T> Future<T> submit(Callable<T> task)：执行任务，有返回值，一般用来执行Callable
+    * void shutdown()：关闭线程池。
+
+  * Executors：工具类/线程池的工厂类，用于创建并返回不同类型的线程池
+    * Executors.newCachedThreadPool()：创建一个可根据需要创建新线程的线程池；
+    * Executors.newFixedThreadPool(int n)：创建一个可重用固定线程数的线程池；
+    * Executors.newSingleThreadExecutor()：创建一个只有一个线程的线程池；
+    * Executors.newScheduledThreadPool(int corePoolSize,)：创建一个线程池，它可安排在给定延迟后运行。
+
+  * 使用线程池的好处
+
+    * 提高相应速度（减少了创建新线程的时间）
+
+    * 降低资源消耗（重复使用线程池中线程，不需要每次都创建销毁）
+
+    * 便于线程管理：
+
+      1）corePoolSize：线程池大小
+
+      2）maximumPoolSize：最大线程数
+
+      3）keepAliveTime：线程没有任务时最多保持多长时间后终止
+
+      4）。。。
+
+```java
+public class CreateThread{
+    /**
+     * 创建线程有四种方式：
+     *  1. 继承Thread类
+     *  2. 实现Runnable接口
+     *  3. 实现Callable接口
+     *  4. 使用线程池
+     */
+
+    public static void main(String[] args) {
+
+        // 方法一：继承Thread类
+        Ticket t1 = new Ticket();
+        Ticket t2 = new Ticket();
+        Ticket t3 = new Ticket();
+        t1.setName("窗口1");
+        t2.setName("窗口2");
+        t3.setName("窗口3");
+        t1.start();
+        t2.start();
+        t3.start();
+
+
+        // 方法二：实现Runnable接口
+        TicketTwo ticketTwo = new TicketTwo();
+        Thread thread1 = new Thread(ticketTwo);
+        Thread thread2 = new Thread(ticketTwo);
+        thread1.setName("窗口1");
+        thread2.setName("窗口2");
+        thread1.start();
+        thread2.start();
+
+        // 方法三：实现Callable接口，需要借助FutureTask
+        TicketThree ticketThree = new TicketThree();
+        FutureTask<Integer> future = new FutureTask<Integer>(ticketThree);
+        new Thread(future).start();
+        try {
+            Integer integer = future.get();
+            System.out.println(integer);
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        } catch (ExecutionException e) {
+            e.printStackTrace();
+        }
+
+        // 方法四：使用线程池
+        ExecutorService service = Executors.newFixedThreadPool(10);
+        ThreadPoolExecutor pool = (ThreadPoolExecutor) Executors.newScheduledThreadPool(100);
+        
+        // 适合使用Runnable
+        service.execute(new TicketTwo());
+        // 适合使用Callable
+//        service.submit(Callable callable);
+    }
+}
+
+
+
+/**
+ * 方法一：继承Thread类
+ *  1. 继承Thread类
+ *  2. 重写run()方法
+ *  3. 创建子类对象
+ *  4. 调用子类对象的start()方法
+ */
+class Ticket extends Thread {
+    private int ticket = 100;
+    @Override
+    public  void run() {
+        while (true) {
+            if (ticket > 0) {
+                System.out.println(Thread.currentThread().getName()+"卖票，票号：" + ticket);
+                ticket--;
+            } else {
+                break;
+            }
+        }
+    }
+
+}
+
+
+/**
+ * 方式二：实现Runnable接口
+ *  1. 创建实现Runnable接口的类
+ *  2. 实现Runnable的抽象方法run()
+ *  3. 创建实现类的对象
+ *  4. 将此对象作为构造器参数，传入Thread类中
+ *  5. 通过Thread类的对象调用run()
+ *
+ */
+class TicketTwo implements Runnable {
+    private int ticket = 100;
+    public void run() {
+        while (true) {
+            if (ticket > 0) {
+                System.out.println(Thread.currentThread().getName()+"卖票，票号：" + ticket);
+                ticket--;
+            } else {
+                break;
+            }
+        }
+    }
+}
+
+/**
+ * 方式三：实现Callable接口
+ *  1. 创建一个实现Callable<T>的类
+ *  2. 实现call()方法，
+ *  3. 创建Callable实现类的对象
+ *  4. 将Callable实现类的对象作为构造器参数，传入FutureTask中，创建FutureTask的对象
+ *  5. 将FutureTask的对象作为参数传入Thread中，创建Thread的对象
+ *  6. 使用Thread的对象调用start()
+ *
+ */
+class TicketThree implements Callable<Integer> {
+    private int ticket = 100;
+    public Integer call() throws Exception {
+        while (true) {
+            if (ticket > 0) {
+                System.out.println(Thread.currentThread().getName()+"卖票，票号：" + ticket);
+                ticket--;
+            } else {
+                break;
+            }
+        }
+        return ticket;
+    }
+}
+```
+
+### 2.2.4 线程同步
+
+* 线程安全问题
+
+
+
+* 同步代码块处理线程安全
+
+
+
+* 同步方法处理线程安全
+
+
+
+* Lock锁处理线程安全
+
+
+
+
+
 # 3、JVM相关
 
 ## 3.1 jvm基本模型图
@@ -173,16 +517,15 @@ Java中数据类型分为：`基本数据类型`和`引用数据类型`两个大
 ![树](D:\Program Files\Typorab\notes\树示例.png)
 
 * 树的**结点**包含一个数据元素及若干指向其子树的分支。
-
 * 结点拥有的子树数称为**结点的度**（Degree），如上图，A的度为3，C的度为1，F的度为0。
 * 度为0的结点称为**叶子**（Leaf）或终端结点，如上图，K、L、F、G、M、I、J都是树的叶子。
 * 度不为0的结点称为**分支结点**或非终端结点。
-
 * **树的度**是树内各节点的度的最大值，如上图，树的度为3。
 * 结点的子树的根称为该结点的**孩子**，相应地，该结点称为孩子的**双亲**，如上图D为A的子树T<sub>3</sub>的根，则D为A的孩子，而A是D的双亲。
 * 同一个双亲的孩子之间互称为**兄弟**。
 * 结点的**祖先**是从根到该结点所经分支上的所有结点，以某结点为根的子树中的任一结点都称为该结点的子孙。
 * 结点的**层次**是从根开始定义起，根为第一层，根的孩子为为第二层。若某结点在第 l 层，则其子树的根就在第 l+1 层。双亲在同一层的结点互为堂兄弟。
+* 树中结点的最大层次称为树的**深度**。
 * 如果书中结点的各子树看成从左至右是有次序的（即不能互换），则称该树为**有序树**，否则称为**无序数**。
 * **森林**是m(m>=0)棵互不相交的树的集合。
 
@@ -201,14 +544,23 @@ Java中数据类型分为：`基本数据类型`和`引用数据类型`两个大
    （a) 空二叉树；(b)仅有根结点的二叉树；(c)右子树为空的二叉树；(d)左、右子树均非空的二叉树；(e)左子树为空的二叉树
 
 3. 二叉树的性质
+
    * 在二叉树的第i层上至多右2<sup>i-1</sup>个结点(i>=1)。
+
    * 深度为k的二叉树至多有2<sup>k</sup>-1个结点(k>=1)。
+
    * 对任何一个二叉树**T**,如果其终端结点（叶子）结点数为**n<sub>0</sub>**，度为2的结点数为n<sub>2</sub>，则n<sub>0</sub>=n<sub>2</sub>+1。
+
    * 具有n个结点的完全二叉树的深度为  floor(log<sub>2</sub>n)  +1。 **(floor(x)表示不大于x的最大整数)**
+
    * 如果对一棵有n个结点的完全二叉树（其深度为 floor(log<sub>2</sub>n)  +1）的结点按层序编号（从第1层到第 floor(log<sub>2</sub>n)  +1层，每层从左到右），则对任一结点 i（l<=i<=n），有
+
      * 如果 i=1，则结点 i 是二叉树的根，无双亲；如果 i>1，则其双亲PARENT(i)是结点 floor(i/2)。
      * 如果 2i > n ，则结点 i 无左孩子(结点 i 为叶子结点)；否则其左孩子LCHILD(i)是结点 2i。
      * 如果 2i + 1 > n ，则结点 i 无右孩子；否则其右孩子RCHILD(i)是结点 2i + 1。
+
+     
+
 4. 满二叉树和完全二叉树
 
    * 一棵深度为k且有2<sup>k</sup>-1个结点的二叉树，称为**满二叉树**。
@@ -241,82 +593,86 @@ Java中数据类型分为：`基本数据类型`和`引用数据类型`两个大
      * 后序遍历右子树
      * 访问根结点
 
-```java
-public class BinaryTree {
+   ```java
+   public class BinaryTree {
+   
+       // 二叉树定义
+       private static class TreeNode {
+           int data;
+           TreeNode leftChild;
+           TreeNode rightChild;
+   
+           TreeNode(int data) {
+               this.data = data;
+           }
+       }
+   
+       // 构建二叉树：以先序方式构建二叉树
+       public static TreeNode createBinaryTree(LinkedList<Integer> inputList) {
+           TreeNode node = null;
+           if (inputList == null || inputList.isEmpty()) {
+               return null;
+           }
+           Integer data = inputList.removeFirst();
+           if (data != null) {
+               node = new TreeNode(data);
+               node.leftChild = createBinaryTree(inputList);
+               node.rightChild = createBinaryTree(inputList);
+           }
+           return node;
+       }
+   
+       // 先序遍历
+       public static void preOrderTraversal(TreeNode node) {
+           if (node == null) {
+               return;
+           }
+           System.out.println(node.data);
+           preOrderTraversal(node.leftChild);
+           preOrderTraversal(node.rightChild);
+       }
+   
+       // 中序遍历
+       public static void inOrderTraversal(TreeNode node) {
+           if (node == null) {
+               return;
+           }
+           inOrderTraversal(node.leftChild);
+           System.out.println(node.data);
+           inOrderTraversal(node.rightChild);
+       }
+   
+       // 后序遍历
+       public static void postOrderTraversal(TreeNode node) {
+           if (node == null) {
+               return;
+           }
+           postOrderTraversal(node.leftChild);
+           postOrderTraversal(node.rightChild);
+           System.out.println(node.data);
+       }
+   
+       public static void main(String[] args) {
+           // null 表示该结点为空结点
+           LinkedList<Integer> inputList = new LinkedList<Integer>(
+                   Arrays.asList(new Integer[]{3,2,9,null,null,10,null,null,8,null,4}));
+           TreeNode node = createBinaryTree(inputList);
+           System.out.println("前序遍历：");
+           preOrderTraversal(node);
+           System.out.println("中序遍历：");
+           inOrderTraversal(node);
+           System.out.println("后序遍历：");
+           postOrderTraversal(node);
+       }
+   }
+   ```
 
-    // 二叉树定义
-    private static class TreeNode {
-        int data;
-        TreeNode leftChild;
-        TreeNode rightChild;
-
-        TreeNode(int data) {
-            this.data = data;
-        }
-    }
-
-    // 构建二叉树：以先序方式构建二叉树
-    public static TreeNode createBinaryTree(LinkedList<Integer> inputList) {
-        TreeNode node = null;
-        if (inputList == null || inputList.isEmpty()) {
-            return null;
-        }
-        Integer data = inputList.removeFirst();
-        if (data != null) {
-            node = new TreeNode(data);
-            node.leftChild = createBinaryTree(inputList);
-            node.rightChild = createBinaryTree(inputList);
-        }
-        return node;
-    }
-
-    // 先序遍历
-    public static void preOrderTraversal(TreeNode node) {
-        if (node == null) {
-            return;
-        }
-        System.out.println(node.data);
-        preOrderTraversal(node.leftChild);
-        preOrderTraversal(node.rightChild);
-    }
-
-    // 中序遍历
-    public static void inOrderTraversal(TreeNode node) {
-        if (node == null) {
-            return;
-        }
-        inOrderTraversal(node.leftChild);
-        System.out.println(node.data);
-        inOrderTraversal(node.rightChild);
-    }
-
-    // 后序遍历
-    public static void postOrderTraversal(TreeNode node) {
-        if (node == null) {
-            return;
-        }
-        postOrderTraversal(node.leftChild);
-        postOrderTraversal(node.rightChild);
-        System.out.println(node.data);
-    }
-
-    public static void main(String[] args) {
-        // null 表示该结点为空结点
-        LinkedList<Integer> inputList = new LinkedList<Integer>(
-                Arrays.asList(new Integer[]{3,2,9,null,null,10,null,null,8,null,4}));
-        TreeNode node = createBinaryTree(inputList);
-        System.out.println("前序遍历：");
-        preOrderTraversal(node);
-        System.out.println("中序遍历：");
-        inOrderTraversal(node);
-        System.out.println("后序遍历：");
-        postOrderTraversal(node);
-    }
-}
-```
-
+   
 
    * 层序遍历
+
+     
+
 
 
 # 5、算法
@@ -334,7 +690,6 @@ public class BinaryTree {
 ### 5.1.3 代码实现
 
 ```java
-public class BubbleSort {
 	/**
      * 冒泡算法： 从小到大排序 （例）
      *  算法描述：
@@ -422,18 +777,7 @@ public class BubbleSort {
         }
         return arr;
     }
-    
-    public static void main(String[] args) {
-            int[] arr = randomArr();
-            for(int i = 0; i < 10; i++) {
-                System.out.print("," + arr[i]);
-            }
-            bubbleSortImprove2(arr);
-        }
-}
 
-
-public class Util {
 	public static void printArr(int[] arr, int i) {
         // 输出记录
         String num = "";
@@ -454,7 +798,14 @@ public class Util {
         }
         return arr;
     }
-}
+
+	public static void main(String[] args) {
+        int[] arr = randomArr();
+        for(int i = 0; i < 10; i++) {
+            System.out.print("," + arr[i]);
+        }
+        bubbleSortImprove2(arr);
+    }
 ```
 
 ### 5.1.3 算法分析
@@ -484,7 +835,6 @@ n个记录的直接选择排序可经过n-1趟直接选择排序得到有序结�
 ### 5.2.2 代码实现
 
 ```java
-public class SelectionSort {
 /**
      * 选择排序： 从小到大排序
      *  算法描述：
@@ -516,7 +866,6 @@ public class SelectionSort {
         }
         return arr;
     }
-}
 ```
 
 
@@ -559,7 +908,6 @@ MySQL实战、高性能MySQL
 ### 5.3.3 代码实现
 
 ```java
-public class InsertionSort {
 /**
      * 插入排序
      *  算法描述：
@@ -617,7 +965,7 @@ public class InsertionSort {
 
         return arr;
     }
-}
+
 ```
 
 
@@ -656,6 +1004,96 @@ public class InsertionSort {
 
 ### 5.4.3 代码实现
 
+```java
+public class ShellSort {
+
+    public static void main(String[] args) {
+        shellSort(randomArr(10,100));
+
+    }
+
+    /**
+     * 希尔排序：交换法,两两一组，与5.4.2的分析有所不同，注意区分
+     * @param arr
+     * @return
+     */
+    public static int[] shellSort1(int[] arr) {
+
+        /*int a = 0;*/
+        
+        for (int gap = arr.length / 2; gap > 0; gap /= 2) {
+            /*System.out.println("gap = " + gap);*/
+
+            int j;
+            for (int i = gap; i < arr.length; i++) {
+                j = i;
+
+                /*System.out.print("i = " + i);
+                System.out.print("\t");
+                System.out.print("j = " + j);
+                System.out.print("\t");
+                System.out.print("j-gap = " + (j-gap));*/
+
+                while (j - gap >= 0 && arr[j] < arr[j - gap]) {
+
+                    /*System.out.print("\t");
+                    System.out.print("j = " + j);
+                    System.out.print("\t");
+                    System.out.print("j-gap = " + (j-gap));*/
+
+                    swap(arr, j, j - gap);
+                    j -= gap;
+                }
+                /*System.out.println();*/
+
+            }
+            /*printArr(arr, a++);*/
+        }
+
+        return arr;
+    }
+    
+    
+     /**
+     * 希尔排序：移动法,两两一组，与5.4.2的分析有所不同，注意区分
+     * @param arr
+     */
+    public static void shellSort2(int[] arr) {
+        //增量gap，并逐步缩小增量
+        for (int gap = arr.length / 2; gap > 0; gap /= 2) {
+            //从第gap个元素，逐个对其所在组进行直接插入排序操作
+            for (int i = gap; i < arr.length; i++) {
+                int j = i;
+                int temp = arr[j];
+                if (arr[j] < arr[j - gap]) {
+                    while (j - gap >= 0 && temp < arr[j - gap]) {
+                        //移动法
+                        arr[j] = arr[j - gap];
+                        j -= gap;
+                    }
+                    arr[j] = temp;
+                }
+            }
+        }
+    }
+    
+    /**
+     * 交换数组元素
+     * @param arr
+     * @param a
+     * @param b
+     */
+    public static void swap(int[] arr, int a, int b) {
+        arr[a] = arr[a] + arr[b];
+        // arr[b] = arr[a]
+        arr[b] = arr[a] - arr[b];
+        // arr[a] = arr[b]
+        arr[a] = arr[a] - arr[b];
+    }
+}
+
+```
+
 
 
 ### 5.4.4 算法分析
@@ -666,9 +1104,13 @@ public class InsertionSort {
 
 
 
+# 6.Netty
 
 
 
 
-# 6、LeetCode刷题记录
+
+
+
+# 7、LeetCode刷题记录
 
